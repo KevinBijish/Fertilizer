@@ -10,9 +10,9 @@ st.set_page_config(page_title="Khet Sahayak - Fertilizer Recommendation", layout
 
 st.markdown("""
     <style>
-    /* Only label text black */
     label, .stSelectbox label, .stTextInput label, .stNumberInput label, .stSlider label {
-        color: #111 !important;
+        color: #18683A !important;
+        font-weight: bold !important;
     }
     </style>
 """, unsafe_allow_html=True)
