@@ -48,6 +48,104 @@ st.markdown("""
 langs = {"English": "en", "हिन्दी": "hi", "ਪੰਜਾਬੀ": "pa"}
 lang = st.selectbox("Language / भाषा / ਭਾਸ਼ਾ", list(langs.keys()), index=0, key="langbox")
 cur_lang = langs[lang]
+
+# Translation dictionaries for soil and crop types
+soil_translations = {
+    'en': {
+        'Alluvial': 'Alluvial',
+        'Black': 'Black',
+        'Chalky': 'Chalky',
+        'Clay': 'Clay',
+        'Clayey': 'Clayey',
+        'Loamy': 'Loamy',
+        'Peaty': 'Peaty',
+        'Red': 'Red',
+        'Sandy': 'Sandy'
+    },
+    'hi': {
+        'Alluvial': 'जलोढ़',
+        'Black': 'काली',
+        'Chalky': 'चॉकी',
+        'Clay': 'मृत्तिका',
+        'Clayey': 'मृत्तिकायुक्त',
+        'Loamy': 'दोमट',
+        'Peaty': 'पीटयुक्त',
+        'Red': 'लाल',
+        'Sandy': 'बलुई'
+    },
+    'pa': {
+        'Alluvial': 'ਜਲੋਢ',
+        'Black': 'ਕਾਲੀ',
+        'Chalky': 'ਚਾਕੀ',
+        'Clay': 'ਚਿਕਨੀ',
+        'Clayey': 'ਚਿਕਨੀ ਮਿੱਟੀ',
+        'Loamy': 'ਦੁਮਟ',
+        'Peaty': 'ਪੀਟ ਵਾਲੀ',
+        'Red': 'ਲਾਲ',
+        'Sandy': 'ਰੇਤਲੀ'
+    }
+}
+
+crop_translations = {
+    'en': {
+        'Arhar': 'Arhar',
+        'Bajra': 'Bajra',
+        'Barley': 'Barley',
+        'Cotton': 'Cotton',
+        'Gram': 'Gram',
+        'Groundnut': 'Groundnut',
+        'Jowar': 'Jowar',
+        'Maize': 'Maize',
+        'Millets': 'Millets',
+        'Moong': 'Moong',
+        'Paddy': 'Paddy',
+        'Ragi': 'Ragi',
+        'Rice': 'Rice',
+        'Sugarcane': 'Sugarcane',
+        'Tobacco': 'Tobacco',
+        'Urad': 'Urad',
+        'Wheat': 'Wheat'
+    },
+    'hi': {
+        'Arhar': 'अरहर',
+        'Bajra': 'बाजरा',
+        'Barley': 'जौ',
+        'Cotton': 'कपास',
+        'Gram': 'चना',
+        'Groundnut': 'मूंगफली',
+        'Jowar': 'ज्वार',
+        'Maize': 'मक्का',
+        'Millets': 'बाजरा',
+        'Moong': 'मूंग',
+        'Paddy': 'धान',
+        'Ragi': 'रागी',
+        'Rice': 'चावल',
+        'Sugarcane': 'गन्ना',
+        'Tobacco': 'तंबाकू',
+        'Urad': 'उड़द',
+        'Wheat': 'गेहूं'
+    },
+    'pa': {
+        'Arhar': 'ਅਰਹਰ',
+        'Bajra': 'ਬਾਜਰਾ',
+        'Barley': 'ਜੌਂ',
+        'Cotton': 'ਕਪਾਹ',
+        'Gram': 'ਚਣਾ',
+        'Groundnut': 'ਮੂੰਗਫਲੀ',
+        'Jowar': 'ਜੁਆਰ',
+        'Maize': 'ਮੱਕੀ',
+        'Millets': 'ਬਾਜਰਾ',
+        'Moong': 'ਮੂੰਗ',
+        'Paddy': 'ਝੋਨਾ',
+        'Ragi': 'ਰਾਗੀ',
+        'Rice': 'ਚੌਲ',
+        'Sugarcane': 'ਗੰਨਾ',
+        'Tobacco': 'ਤੰਬਾਕੂ',
+        'Urad': 'ਉੜਦ',
+        'Wheat': 'ਕਣਕ'
+    }
+}
+
 labels = {
     'en': {
         'title': "Fertilizer Recommendation",
@@ -79,7 +177,7 @@ labels = {
     },
     'pa': {
         'title': "ਖਾਦ ਦੀ ਸਿਫਾਰਸ਼",
-        'desc': "ਹੇਠਾਂ ਦਿੱਤੇ ਫਾਰਮ ਨੂੰ ਭਰ ਕੇ ਨਿਜੀਖੇਡ ਖਾਦ ਸਲਾਹ ਲਵੋ。",
+        'desc': "ਹੇਠਾਂ ਦਿੱਤੇ ਫਾਰਮ ਨੂੰ ਭਰ ਕੇ ਨਿਜੀਖੇਡ ਖਾਦ ਸਲਾਹ ਲਵੋ।",
         'temperature': "ਤਾਪਮਾਨ (°C)",
         'humidity': "ਨਮੀਆਂ (%)",
         'soil_moisture': "ਮਿੱਟੀ ਦੀ ਨਮੀ (%)",
