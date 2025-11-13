@@ -120,14 +120,14 @@ st.markdown(f"""
 """, unsafe_allow_html=True)
 
 # ---------- STREAMLIT INPUT WIDGETS ------------
-temp = st.number_input("Temperature (in Celsius)", min_value=0.0, max_value=60.0, value=25.0, step=0.1)
-humidity = st.number_input("Humidity (%)", min_value=0.0, max_value=100.0, value=50.0, step=0.1)
-nitrogen = st.number_input("Nitrogen Content in Soil (ppm)", min_value=0, max_value=200, value=100)
-potassium = st.number_input("Potassium Content in Soil (ppm)", min_value=0, max_value=200, value=100)
-phosphorus = st.number_input("Phosphorous Content in Soil (ppm)", min_value=0, max_value=200, value=100)
-soil_type = st.selectbox("Select Soil Type", le_soil.classes_)
-crop_type = st.selectbox("Select Crop Type", le_crop.classes_)
-moisture = st.number_input("Soil Moisture (%)", min_value=0.0, max_value=100.0, value=30.0, step=0.1)
+temp = st.number_input(labels['temperature'], min_value=0.0, max_value=60.0, value=25.0, step=0.1)
+humidity = st.number_input(labels['humidity'], min_value=0.0, max_value=100.0, value=50.0, step=0.1)
+moisture = st.number_input(labels['soil_moisture'], min_value=0.0, max_value=100.0, value=30.0, step=0.1)
+soil_type = st.selectbox(labels['soil_type'], le_soil.classes_)
+crop_type = st.selectbox(labels['crop'], le_crop.classes_)
+nitrogen = st.number_input(labels['nitrogen'], min_value=0, max_value=200, value=100)
+phosphorus = st.number_input(labels['phosphorus'], min_value=0, max_value=200, value=100)
+potassium = st.number_input(labels['potassium'], min_value=0, max_value=200, value=100)
 
 if st.button(labels['submit']):
     row = [[
