@@ -18,7 +18,6 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-
 st.markdown("""
     <style>
     html, body, .main {background: #fff!important;}
@@ -195,6 +194,8 @@ labels = {
 
 df = pd.read_csv("Fertilizer_recommendation.csv")
 df.columns = df.columns.str.strip()
+df['Soil Type'] = df['Soil Type'].str.strip()
+df['Crop Type'] = df['Crop Type'].str.strip()
 X = df.drop(["Fertilizer"], axis=1)
 y = df["Fertilizer"]
 
@@ -205,6 +206,16 @@ X['Crop Type'] = le_crop.fit_transform(X['Crop Type'])
 
 rf = RandomForestClassifier(random_state=42, n_estimators=60)
 rf.fit(X, y)
+
+# Helper functions to get only matching translation options
+def get_valid_translated_options(le_classes, translations):
+    valid = []
+    keys_original = []
+    for s in le_classes:
+        if s in translations[cur_lang]:
+            valid.append(translations[cur_lang][s])
+            keys_original.append(s)
+    return valid, keys_original
 
 # ------------- UI CARD AND INPUT FORM HTML -----------------
 
@@ -222,17 +233,14 @@ temp = st.number_input(labels['temperature'], min_value=0.0, max_value=60.0, val
 humidity = st.number_input(labels['humidity'], min_value=0.0, max_value=100.0, value=50.0, step=0.1)
 moisture = st.number_input(labels['soil_moisture'], min_value=0.0, max_value=100.0, value=30.0, step=0.1)
 
-# Create translated options for soil type
-soil_options_translated = [soil_translations[cur_lang][s] for s in le_soil.classes_]
+# Get only matched soil types for translation display
+soil_options_translated, soil_keys = get_valid_translated_options(le_soil.classes_, soil_translations)
 soil_type_display = st.selectbox(labels['soil_type'], soil_options_translated)
-# Get the original English value for prediction
-soil_type = list(soil_translations[cur_lang].keys())[list(soil_translations[cur_lang].values()).index(soil_type_display)]
+soil_type = soil_keys[soil_options_translated.index(soil_type_display)]
 
-# Create translated options for crop type
-crop_options_translated = [crop_translations[cur_lang][c] for c in le_crop.classes_]
+crop_options_translated, crop_keys = get_valid_translated_options(le_crop.classes_, crop_translations)
 crop_type_display = st.selectbox(labels['crop'], crop_options_translated)
-# Get the original English value for prediction
-crop_type = list(crop_translations[cur_lang].keys())[list(crop_translations[cur_lang].values()).index(crop_type_display)]
+crop_type = crop_keys[crop_options_translated.index(crop_type_display)]
 
 nitrogen = st.number_input(labels['nitrogen'], min_value=0, max_value=200, value=100)
 phosphorus = st.number_input(labels['phosphorus'], min_value=0, max_value=200, value=100)
@@ -250,3 +258,4 @@ if st.button(labels['submit']):
 
 st.markdown("</div>", unsafe_allow_html=True)
 st.markdown('<div class="footer"><p>© 2025 Khet Sahayak. All rights reserved.</p></div>', unsafe_allow_html=True)
+
