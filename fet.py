@@ -4,7 +4,7 @@ import numpy as np
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.preprocessing import LabelEncoder
 
-# ---------- PAGE SETUP, STYLE, AND LANGUAGES (keep as in your previous template) ----------------
+# ---------- PAGE SETUP, STYLE, AND LANGUAGES ----------------
 
 st.set_page_config(page_title="Khet Sahayak - Fertilizer Recommendation", layout="wide")
 
@@ -221,8 +221,19 @@ st.markdown(f"""
 temp = st.number_input(labels['temperature'], min_value=0.0, max_value=60.0, value=25.0, step=0.1)
 humidity = st.number_input(labels['humidity'], min_value=0.0, max_value=100.0, value=50.0, step=0.1)
 moisture = st.number_input(labels['soil_moisture'], min_value=0.0, max_value=100.0, value=30.0, step=0.1)
-soil_type = st.selectbox(labels['soil_type'], le_soil.classes_)
-crop_type = st.selectbox(labels['crop'], le_crop.classes_)
+
+# Create translated options for soil type
+soil_options_translated = [soil_translations[cur_lang][s] for s in le_soil.classes_]
+soil_type_display = st.selectbox(labels['soil_type'], soil_options_translated)
+# Get the original English value for prediction
+soil_type = list(soil_translations[cur_lang].keys())[list(soil_translations[cur_lang].values()).index(soil_type_display)]
+
+# Create translated options for crop type
+crop_options_translated = [crop_translations[cur_lang][c] for c in le_crop.classes_]
+crop_type_display = st.selectbox(labels['crop'], crop_options_translated)
+# Get the original English value for prediction
+crop_type = list(crop_translations[cur_lang].keys())[list(crop_translations[cur_lang].values()).index(crop_type_display)]
+
 nitrogen = st.number_input(labels['nitrogen'], min_value=0, max_value=200, value=100)
 phosphorus = st.number_input(labels['phosphorus'], min_value=0, max_value=200, value=100)
 potassium = st.number_input(labels['potassium'], min_value=0, max_value=200, value=100)
